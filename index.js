@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
   console.log("A client connected!")
   socket.on("sendMessage", (data) => {
     if (data.password !== config.password) return;
-    io.emit("message", {target: data.target, message: data.message});
+    io.emit("message", {target: data.target, message: data.message, displayTime: data.displayTime || 5000});
   });
   socket.on("disconnect", () => {
     console.log("A client disconnected!");
