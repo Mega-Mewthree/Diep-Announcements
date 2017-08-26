@@ -7,7 +7,9 @@ var config = {
   password: process.env.password
 };
 
-server.listen(process.env.PORT || 8000);
+var port = process.env.PORT || 8080;
+
+server.listen(port);
 
 app.use((err, request, response, next) => {
   console.log(err);
@@ -31,4 +33,4 @@ io.on("connection", (socket) => {
   });
 });
 
-console.log("Ready!");
+console.log(`Ready! (Port: ${port})`);
