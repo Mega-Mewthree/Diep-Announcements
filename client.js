@@ -27,7 +27,6 @@ function socketConnect(){
     }
     if (socket != null){
         clearInterval(socketConnectInterval);
-        initSocket();
     }
 }
 
