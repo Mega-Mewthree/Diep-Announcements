@@ -7,7 +7,7 @@ var config = {
   password: process.env.password
 };
 
-server.listen(8000);
+server.listen(process.env.PORT || 8000);
 
 app.use((err, request, response, next) => {
   console.log(err);
