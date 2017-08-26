@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Diep.io Announcement System
 // @namespace    https://discord.gg/BwqMNRn
-// @version      0.1
+// @version      0.3
 // @description  A system to allow announcements to be made in diep.io.
 // @author       Lucario
 // @match        http://diep.io
@@ -42,6 +42,15 @@ var announcementDisplay =`<span id="announcementDisplay" style="position:absolut
 
 document.querySelector('body').insertAdjacentHTML('afterend', announcementDisplay);
 
+var i = document.createElement('input');
+i.type = "text";
+i.id = "announcementBox";
+i.style.display = "none";
+i.style.width = "100%";
+i.style.position = "absolute";
+i.style.top = "5vh";
+document.getElementById("textInputContainer").appendChild(i);
+
 socket && socket.on("connect", () => {
     socket.on("message", (data) => {
         if (group !== null && data.target == group){
@@ -56,6 +65,16 @@ socket && socket.on("connect", () => {
         socket = null;
         socketConnectInterval = setInterval(socketConnect, 2500);
     });
+});
+
+document.getElementById("announcementBox").addEventListener("keyup", (event) => {
+    if (event.keyCode == 13){
+        var textbox = document.getElementById("announcementBox").value;
+        if (textbox.startsWith("!setgroup")){
+            group = textbox.split(" ").slice(1).join(" ");
+        }
+        document.getElementById("announcementBox").value = "";
+    }
 });
 
 document.addEventListener('keydown', function(event){
